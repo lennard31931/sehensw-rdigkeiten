@@ -1,90 +1,55 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Düsseldorf Entdecken</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #0e0e10;
-            --gold: #c9a84c;
-            --text: #e1e1e1;
-            --glass: rgba(255, 255, 255, 0.05);
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            font-family: 'DM Sans', sans-serif;
-            line-height: 1.6;
-            padding: 2rem;
-        }
-
-        header { text-align: center; margin-bottom: 4rem; }
-        h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--gold); margin-bottom: 1rem; }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .card {
-            background: var(--glass);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid rgba(201, 168, 76, 0.2);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            position: relative;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold);
-        }
-
-        .num { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem; display: block; }
-        h2 { font-family: 'Playfair Display', serif; margin-bottom: 0.5rem; }
-        .label { color: var(--gold); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 1rem; }
-        .badge { display: inline-block; background: var(--gold); color: var(--bg); padding: 0.2rem 0.8rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-top: 1rem; }
-        
-        svg { width: 40px; height: 40px; fill: var(--gold); margin-bottom: 1rem; }
+        body { background: #ffb6c1; min-height: 100vh; padding: 2rem; font-family: sans-serif; }
+        h1 { text-align: center; font-size: 2.5rem; color: #c2185b; margin-bottom: 0.5rem; }
+        .sub { text-align: center; color: #880e4f; margin-bottom: 2rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+        .card { background: rgba(255,255,255,0.6); border-radius: 16px; border: 1.5px solid #f48fb1; padding: 1.5rem; }
+        .num { color: #e91e8c; font-size: 1.3rem; font-weight: bold; display: block; margin-bottom: 0.5rem; }
+        .card h2 { color: #880e4f; font-size: 1.2rem; margin-bottom: 0.3rem; }
+        .label { color: #e91e8c; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 0.8rem; }
+        .card p { color: #6b003a; font-size: 0.95rem; }
+        .badge { display: inline-block; background: #e91e8c; color: #fff; padding: 0.2rem 0.8rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-top: 0.8rem; }
     </style>
 </head>
 <body>
-
-<header>
     <h1>Düsseldorf entdecken</h1>
-    <p>Eine Reise durch die eleganteste Metropole am Rhein.</p>
-</header>
-
-<div class="grid" id="app"></div>
-
-<script>
-    const sights = [
-        { num: "01", icon: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5", title: "Rheinturm", cat: "Aussichtsturm", desc: "Mit 240,5 Metern das höchste Bauwerk der Stadt, bietet er einen atemberaubenden Blick über den Medienhafen.", tag: "Medienhafen" },
-        { num: "02", icon: "M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6z", title: "Altstadt", cat: "Historisches Zentrum", desc: "Bekannt als die längste Theke der Welt, vereint sie Brauhauskultur mit lebendiger Geschichte.", tag: "Zentrum" },
-        { num: "03", icon: "M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z", title: "Schloss Benrath", cat: "Lustschloss", desc: "Ein architektonisches Juwel des Rokoko, umgeben von einem weitläufigen, traumhaften Park.", tag: "Benrath" },
-        { num: "04", icon: "M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z", title: "Königsallee", cat: "Luxus-Shopping", desc: "Die elegante Prachtstraße besticht durch exklusive Boutiquen und den charmanten Stadtgraben.", tag: "Shopping" }
-    ];
-
-    const container = document.getElementById('app');
-    sights.forEach(s => {
-        container.innerHTML += `
-            <div class="card">
-                <span class="num">${s.num}/04</span>
-                <svg viewBox="0 0 24 24"><path d="${s.icon}"/></svg>
-                <h2>${s.title}</h2>
-                <span class="label">${s.cat}</span>
-                <p>${s.desc}</p>
-                <span class="badge">${s.tag}</span>
-            </div>
-        `;
-    });
-</script>
+    <p class="sub">Eine Reise durch die eleganteste Metropole am Rhein.</p>
+    <div class="grid">
+        <div class="card">
+            <span class="num">01/04</span>
+            <h2>Rheinturm</h2>
+            <span class="label">Aussichtsturm</span>
+            <p>Mit 240,5 Metern das höchste Bauwerk der Stadt, bietet er einen atemberaubenden Blick über den Medienhafen.</p>
+            <span class="badge">Medienhafen</span>
+        </div>
+        <div class="card">
+            <span class="num">02/04</span>
+            <h2>Altstadt</h2>
+            <span class="label">Historisches Zentrum</span>
+            <p>Bekannt als die längste Theke der Welt, vereint sie Brauhauskultur mit lebendiger Geschichte.</p>
+            <span class="badge">Zentrum</span>
+        </div>
+        <div class="card">
+            <span class="num">03/04</span>
+            <h2>Schloss Benrath</h2>
+            <span class="label">Lustschloss</span>
+            <p>Ein architektonisches Juwel des Rokoko, umgeben von einem weitläufigen, traumhaften Park.</p>
+            <span class="badge">Benrath</span>
+        </div>
+        <div class="card">
+            <span class="num">04/04</span>
+            <h2>Königsallee</h2>
+            <span class="label">Luxus-Shopping</span>
+            <p>Die elegante Prachtstraße besticht durch exklusive Boutiquen und den charmanten Stadtgraben.</p>
+            <span class="badge">Shopping</span>
+        </div>
+    </div>
 </body>
 </html>
